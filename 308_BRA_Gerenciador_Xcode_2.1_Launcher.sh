@@ -18,7 +18,7 @@ PLISTBUDDY="/usr/libexec/PlistBuddy"
 LSREGISTER="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister"
 ICON_URL="https://usw2.ics.services.jamfcloud.com/icon/hash_34643aa5722dd94f45ffd8102dd67e8fb135eede6a855c578a9c9b866b543cc6"
 LOG="/var/log/xcode_manager.log"
-LAUNCHER_PREFIX="com.santander.workplace.xcode-launcher"
+LAUNCHER_PREFIX="com.std.workplace.xcode-launcher"
 
 XCODE_VERSIONS=(
   "Xcode 16.4:Xcode16.4"
