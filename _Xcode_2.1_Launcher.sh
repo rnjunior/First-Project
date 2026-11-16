@@ -1,48 +1,6 @@
 #!/bin/bash
 #
-# 308_BRA_Gerenciador_Xcode_3.7_Diagnostico_Espera5s_Pos_Abertura.sh
-# TESTE CONTROLADO: apenas em instalacao nova, depois da tentativa de
-# abertura oculta com plist temporario, manter o plist por 5 segundos antes
-# de restaurar, independentemente do codigo de retorno de open.
-# Nao realiza novas aberturas, nao altera Jamf/xcode-select nem o fix original.
-# V3.7 - EXPERIMENTO DE HOMOLOGACAO: na instalacao nova de Xcode antigo,
-# tenta abrir ocultamente o .app com plist ORIGINAL antes do backup/troca.
-# Erros conhecidos (-10664/Code 163) sao ESPERADOS e nao bloqueiam o fix.
-# Em caso de abertura real, fecha SOMENTE a instancia de teste identificada.
-# Mantem os triggers, UI V2, progresso Jamf, integridade, SHA-256 e diagnostico.
-# Jamf Pro / SwiftDialog — Interface V2 + correcao CONTROLADA de integridade.
-#
-# V3.7 - Mantem a V3.6 homologada e corrige SOMENTE a janela de progresso Jamf:
-# - Ajusta propriedade/permissoes do commandfile para o usuario grafico;
-# - Registra falhas do SwiftDialog em dialog_progresso_ultimo.log;
-# - Preserva progresso por eventos (sem inventar percentual de download);
-# - Mantem SHA-256 e codesign otimizado, telas V2, aviso Xcode em uso e fix.
-#
-# V3.6 - Estrutura homologada da V3.5 + SHA-256 obrigatorio e codesign pos-fix otimizado:
-#   (1) valida/recupera a assinatura original; (2) encontra o plist de referencia;
-#   (3) guarda o plist ORIGINAL em pasta externa; (4) aplica o plist temporario;
-#   (5) tenta abrir oculto; (6) encerra SOMENTE a instancia de teste;
-#   (7) restaura EXATAMENTE o plist original e valida SHA-256; codesign pos-fix so em falha/auditoria.
-# - Nenhum backup eh criado dentro de Xcode.app.
-# - Se LaunchServices recusar (Code 163, -10664 etc.), restaura e registra no log.
-# - O sistema PODE rejeitar o aplicativo enquanto o plist temporario invalida a
-#   assinatura; este fluxo e EXPERIMENTAL, NAO garante abertura pelo Finder.
-# - Nao cria launchers, nao altera Gatekeeper/SIP/AMFI, nao reassina o Xcode.
-# - Mantem os triggers, as telas de gerenciamento e as correcao de integridade.
-# - Logs e pastas de suporte: ACL de LEITURA para o usuario do console, sem
-#   conceder escrita nem aplicar chmod 755 recursivo a SantanderFiles.
-# - Se houver Xcode aberto, apresenta aviso e volta ao seletor apos encerramento.
-#   O commandfile de aviso e propriedade do usuario do console (dialogcli roda
-#   no contexto grafico desse usuario). Caso o aviso monitorado nao inicie,
-#   oferece aviso simples; jamais apresenta erro de politica somente por isso.
-#   Nao fecha automaticamente os projetos, nao aborta a politica nem muda a versao.
-# - Usa codesign RAPIDO antes do fix (sem --deep), com opcao de auditoria profunda.
-#   Apos o fix, SHA-256 continua OBRIGATORIO. A segunda verificacao codesign
-#   e dispensada quando a restauracao e o hash passam; em caso de falha,
-#   executa diagnostico profundo. Opcao 'always' reabilita a segunda validacao.
-# - Restaura backup pendente de execucoes anteriores ANTES de nova selecao.
-# HOMOLOGAR em um Mac de testes antes da distribuicao via Jamf.
-#
+# 
 set -u
 set -o pipefail
 umask 077
